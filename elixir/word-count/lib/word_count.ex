@@ -6,5 +6,8 @@ defmodule WordCount do
   """
   @spec count(String.t()) :: map
   def count(sentence) do
+    sentence
+    |> String.split()
+    |> Kernel.length()
   end
 end

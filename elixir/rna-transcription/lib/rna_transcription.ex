@@ -9,35 +9,30 @@ defmodule RnaTranscription do
   """
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    dna =
-      dna
-      |> transform([])
-      |> Enum.reverse()
+    dna
+    |> transform([])
   end
 
-  def transform([head | tail], rna) do
-    rna = [convert_char(head) | rna]
-    transform(tail, rna)
+  defp transform([head | tail], rna) do
+    rna = [convert_char(head) | transform(tail, rna)]
   end
 
-  def transform([], rna) do
-    rna
-  end
+  defp transform([], rna), do: rna
 
   @spec convert_char(integer) :: integer | tuple
   def convert_char(char) do
     case char do
-      65 ->
-        85
+      ?A ->
+        ?U
 
-      67 ->
-        71
+      ?C ->
+        ?G
 
-      84 ->
-        65
+      ?T ->
+        ?A
 
-      71 ->
-        67
+      ?G ->
+        ?C
 
       _ ->
         {:error, "Invalid Char"}

@@ -9,8 +9,7 @@ defmodule WordCount do
   def count(sentence) do
     sentence
     |> String.downcase()
-    |> String.replace(~r/[^[:alnum:]-]/u, " ")
-    |> String.split()
+    |> String.split(~r/[^[:alnum:]-]/u, trim: true)
     |> Enum.reduce(%{}, fn word, acc -> Map.update(acc, word, 1, &(&1 + 1)) end)
   end
 end

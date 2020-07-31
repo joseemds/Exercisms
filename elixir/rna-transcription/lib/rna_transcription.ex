@@ -9,33 +9,12 @@ defmodule RnaTranscription do
   """
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    dna
-    |> transform([])
+    transform(dna, [])
   end
 
-  defp transform([head | tail], rna) do
-    rna = [convert_char(head) | transform(tail, rna)]
-  end
-
+  defp transform([?A | tail], rna), do: [?U | transform(tail, rna)]
+  defp transform([?C | tail], rna), do: [?G | transform(tail, rna)]
+  defp transform([?T | tail], rna), do: [?A | transform(tail, rna)]
+  defp transform([?G | tail], rna), do: [?C | transform(tail, rna)]
   defp transform([], rna), do: rna
-
-  @spec convert_char(integer) :: integer | tuple
-  def convert_char(char) do
-    case char do
-      ?A ->
-        ?U
-
-      ?C ->
-        ?G
-
-      ?T ->
-        ?A
-
-      ?G ->
-        ?C
-
-      _ ->
-        {:error, "Invalid Char"}
-    end
-  end
 end

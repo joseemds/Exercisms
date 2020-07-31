@@ -8,9 +8,7 @@ defmodule RnaTranscription do
   'UGAC'
   """
   @spec to_rna([char]) :: [char]
-  def to_rna(dna) do
-    transform(dna, [])
-  end
+  def to_rna(dna), do: transform(dna, [])
 
   defp transform([?A | tail], rna), do: [?U | transform(tail, rna)]
   defp transform([?C | tail], rna), do: [?G | transform(tail, rna)]

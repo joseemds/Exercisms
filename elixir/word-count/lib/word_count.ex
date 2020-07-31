@@ -9,6 +9,6 @@ defmodule WordCount do
   def count(sentence) do
     sentence
     |> String.split()
-    |> Enum.reduce(%{}, fn word, acc -> Map.put(acc, word, 1) end)
+    |> Enum.reduce(%{}, fn word, acc -> Map.update(acc, word, 1, &(&1 + 1)) end)
   end
 end

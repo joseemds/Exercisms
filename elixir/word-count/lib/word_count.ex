@@ -4,10 +4,11 @@ defmodule WordCount do
 
   Words are compared case-insensitively.
   """
+
   @spec count(String.t()) :: map
   def count(sentence) do
     sentence
     |> String.split()
-    |> Kernel.length()
+    |> Enum.reduce(%{}, fn word, acc -> Map.put(acc, word, 1) end)
   end
 end

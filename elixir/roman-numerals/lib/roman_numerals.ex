@@ -11,10 +11,11 @@ defmodule RomanNumerals do
     roman_string <> to_roman(number, roman_string)
   end
 
-  def convert(n) when n >= 1000, do: "M"
-  def convert(n) when n >= 100, do: "C"
-  def convert(n) when n >= 50, do: "L"
-  def convert(n) when n >= 10, do: "X"
-  def convert(n) when n >= 5, do: "V"
-  def convert(n) when n >= 1, do: "I"
+  def convert(n) when n >= 1000, do: "M" <> convert(n - 1000)
+  def convert(n) when n >= 100, do: "C" <> convert(n - 100)
+  def convert(n) when n >= 50, do: "L" <> convert(n - 50)
+  def convert(n) when n >= 10, do: "X" <> convert(n - 10)
+  def convert(n) when n >= 5, do: "V" <> convert(n - 5)
+  def convert(n) when n >= 1, do: "I" <> convert(n - 1)
+  def convert(_), do: ""
 end

@@ -1,17 +1,17 @@
 defmodule Bob do
   def hey(input) do
     cond do
+      String.ends_with?(input, "?") && String.equivalent?(S, String.upcase(input)) ->
+        "Calm down, I know what I'm doing!"
+
       String.equivalent?("", String.trim(input)) ->
         "Fine. Be that way!"
 
-      String.match?(input, ~r/^[^a-z]*$/) && String.match?(input, ~r/[?]$/) ->
-        "Calm down, I know what I'm doing!"
+      String.equivalent?(input, String.upcase(input)) ->
+        "Whoa, chill out!"
 
       String.trim(input) |> String.ends_with?("?") ->
         "Sure."
-
-      String.match?(input, ~r/^[^a-z]*$/) ->
-        "Whoa, chill out!"
 
       true ->
         "Whatever."

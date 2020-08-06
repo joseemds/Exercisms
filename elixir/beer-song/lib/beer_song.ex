@@ -38,12 +38,7 @@ defmodule BeerSong do
 
   def lyrics(first..last \\ 99..0) do
     first..last
-    |> Enum.map(fn x ->
-      case x do
-        ^first -> verse(x)
-        _ -> "\n" <> verse(x)
-      end
-    end)
-    |> List.to_string()
+    |> Enum.map(fn x -> verse(x) end)
+    |> Enum.join("\n")
   end
 end

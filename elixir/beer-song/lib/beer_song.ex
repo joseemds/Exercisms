@@ -36,9 +36,14 @@ defmodule BeerSong do
   """
   @spec lyrics(Range.t()) :: String.t()
 
+  # def lyrics(first..last \\ 99..0) do
+  #   first..last
+  #   |> Enum.map(fn x -> verse(x) end)
+  #   |> Enum.join("\n")
+  # end
+
   def lyrics(first..last \\ 99..0) do
     first..last
-    |> Enum.map(fn x -> verse(x) end)
-    |> Enum.join("\n")
+    |> Enum.map_join("\n", fn x -> verse(x) end)
   end
 end

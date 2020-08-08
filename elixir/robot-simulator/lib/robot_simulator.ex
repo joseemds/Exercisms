@@ -14,7 +14,19 @@ defmodule RobotSimulator do
     {:error, "invalid direction"}
   end
 
-  def create(direction \\ :north, position = {left, right} \\ {0, 0}) do
+  def create(_, position) when not is_tuple(position) do
+    {:error, "invalid position"}
+  end
+
+  def create(_, position) when tuple_size(position) !== 2 do
+    {:error, "invalid position"}
+  end
+
+  def create(_, {x, y}) when not is_integer(x) or not is_integer(y) do
+    {:error, "invalid position"}
+  end
+
+  def create(direction \\ :north, position \\ {0, 0}) do
     %RobotSimulator{direction: direction, position: position}
   end
 

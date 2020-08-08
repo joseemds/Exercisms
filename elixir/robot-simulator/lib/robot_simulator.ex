@@ -1,11 +1,14 @@
 defmodule RobotSimulator do
+  defstruct [:direction, :position]
+
   @doc """
   Create a Robot Simulator given an initial direction and position.
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
   @spec create(direction :: atom, position :: {integer, integer}) :: any
-  def create(direction \\ nil, position \\ nil) do
+  def create(direction \\ :north, position \\ {0, 0}) do
+    %RobotSimulator{direction: direction, position: position}
   end
 
   @doc """
@@ -24,6 +27,7 @@ defmodule RobotSimulator do
   """
   @spec direction(robot :: any) :: atom
   def direction(robot) do
+    Map.get(robot, :direction)
   end
 
   @doc """
@@ -31,5 +35,6 @@ defmodule RobotSimulator do
   """
   @spec position(robot :: any) :: {integer, integer}
   def position(robot) do
+    Map.get(robot, :position)
   end
 end

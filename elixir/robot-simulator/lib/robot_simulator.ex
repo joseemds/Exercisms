@@ -1,8 +1,8 @@
 defmodule RobotSimulator do
+  alias RobotSimulator.InputHandler
   defstruct [:direction, :position]
 
   @valid_directions ~w"north east south west"a
-  @valid_instruction ~w"R L A"
 
   @doc """
   Create a Robot Simulator given an initial direction and position.
@@ -40,19 +40,7 @@ defmodule RobotSimulator do
   def simulate(robot, instructions) do
     instructions
     |> String.codepoints()
-    |> handle_input
-  end
-
-  defp handle_input(instruction) when instruction not in @valid_instruction,
-    do: {:error, "invalid instruction"}
-
-  defp handle_input("R") do
-  end
-
-  defp handle_input("L") do
-  end
-
-  defp handle_input("A") do
+    |> InputHandler.handle_input(robot)
   end
 
   @doc """

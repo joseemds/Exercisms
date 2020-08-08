@@ -1,13 +1,20 @@
 defmodule RobotSimulator do
   defstruct [:direction, :position]
 
+  @valid_directions ~w"north east south west"a
+
   @doc """
   Create a Robot Simulator given an initial direction and position.
 
   Valid directions are: `:north`, `:east`, `:south`, `:west`
   """
   @spec create(direction :: atom, position :: {integer, integer}) :: any
-  def create(direction \\ :north, position \\ {0, 0}) do
+
+  def create(direction, _) when direction not in @valid_directions do
+    {:error, "invalid direction"}
+  end
+
+  def create(direction \\ :north, position = {left, right} \\ {0, 0}) do
     %RobotSimulator{direction: direction, position: position}
   end
 

@@ -23,6 +23,11 @@ defmodule ListOps do
 
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(l, f) do
+    for item <- l do
+      if f.(item) == true do
+        item
+      end
+    end
   end
 
   @type acc :: any

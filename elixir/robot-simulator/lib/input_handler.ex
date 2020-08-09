@@ -3,16 +3,9 @@ defmodule RobotSimulator.InputHandler do
 
   def handle_input(robot, []), do: robot
 
-  def handle_input(robot, ["R" | remaining_instructions]) do
-    robot |> update_direction("R") |> handle_input(remaining_instructions)
-  end
-
-  def handle_input(robot, ["L" | remaining_instructions]) do
-    robot |> update_direction("L") |> handle_input(remaining_instructions)
-  end
-
-  def handle_input(robot, ["A" | remaining_instructions]) do
-    robot |> update_direction("A") |> handle_input(remaining_instructions)
+  def handle_input(robot, [instruction | remaining_instructions])
+      when instruction in @valid_instruction do
+    robot |> update_direction(instruction) |> handle_input(remaining_instructions)
   end
 
   def handle_input(_, _), do: {:error, "invalid instruction"}

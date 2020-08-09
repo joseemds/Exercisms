@@ -1,14 +1,57 @@
 defmodule RobotSimulator.InputHandler do
   @valid_instruction ~w"R L A"
-  def handle_input(instruction, _) when instruction not in @valid_instruction,
-    do: {:error, "invalid instruction"}
 
-  def handle_input("R", robot) do
+  def handle_input(robot, []), do: robot
+
+  def handle_input(robot, ["R" | remaining_instructions]) do
+    robot |> update_direction("R") |> handle_input(remaining_instructions)
   end
 
-  def handle_input("L", robot) do
+  def handle_input(robot, ["L" | remaining_instructions]) do
+    robot |> update_direction("L") |> handle_input(remaining_instructions)
   end
 
-  def handle_input("A", robot) do
+  def handle_input(robot, ["A" | remaining_instructions]) do
+    robot |> update_direction("A") |> handle_input(remaining_instructions)
   end
+
+  def handle_input(_, _), do: {:error, "invalid instruction"}
+
+  defp update_direction(robot, "R") do
+    case robot.direction do
+      :north -> Map.put(robot, :direction, :east)
+      :east -> Map.put(robot, :direction, :south)
+      :south -> Map.put(robot, :direction, :west)
+      :west -> Map.put(robot, :direction, :north)
+      _ -> "Invalid"
+    end
+  end
+
+  defp update_direction(robot, "L") do
+    case robot.direction do
+      :north -> Map.put(robot, :direction, :west)
+      :east -> Map.put(robot, :direction, :north)
+      :south -> Map.put(robot, :direction, :east)
+      :west -> Map.put(robot, :direction, :south)
+      _ -> "Invalid"
+    end
+  end
+
+  defp update_direction(robot, "A") do
+    case robot.direction do
+      :north -> Map.put(robot, :position, update_position(robot, :north))
+      :east -> Map.put(robot, :position, update_position(robot, :east))
+      :south -> Map.put(robot, :position, update_position(robot, :south))
+      :west -> Map.put(robot, :position, update_position(robot, :west))
+      _ -> "Invalid"
+    end
+  end
+
+  defp update_position(%RobotSimulator{position: {x, y}}, :north), do: {x, y + 1}
+
+  defp update_position(%RobotSimulator{position: {x, y}}, :south), do: {x, y - 1}
+
+  defp update_position(%RobotSimulator{position: {x, y}}, :east), do: {x + 1, y}
+
+  defp update_position(%RobotSimulator{position: {x, y}}, :west), do: {x - 1, y}
 end

@@ -11,6 +11,10 @@ defmodule RobotSimulator do
   """
   @spec create(direction :: atom, position :: {integer, integer}) :: any
 
+  def create() do
+    %RobotSimulator{direction: :north, position: {0, 0}}
+  end
+
   def create(direction, _) when direction not in @valid_directions do
     {:error, "invalid direction"}
   end
@@ -27,7 +31,7 @@ defmodule RobotSimulator do
     {:error, "invalid position"}
   end
 
-  def create(direction \\ :north, position \\ {0, 0}) do
+  def create(direction, position) do
     %RobotSimulator{direction: direction, position: position}
   end
 
@@ -38,9 +42,10 @@ defmodule RobotSimulator do
   """
   @spec simulate(robot :: any, instructions :: String.t()) :: any
   def simulate(robot, instructions) do
-    instructions
-    |> String.codepoints()
-    |> InputHandler.handle_input(robot)
+    instructions_array = String.codepoints(instructions)
+
+    robot
+    |> InputHandler.handle_input(instructions_array)
   end
 
   @doc """

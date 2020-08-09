@@ -55,7 +55,7 @@ defmodule RobotSimulator do
   """
   @spec direction(robot :: any) :: atom
   def direction(robot) do
-    Map.get(robot, :direction)
+    robot.direction
   end
 
   @doc """
@@ -63,6 +63,6 @@ defmodule RobotSimulator do
   """
   @spec position(robot :: any) :: {integer, integer}
   def position(robot) do
-    Map.get(robot, :position)
+    robot.position
   end
 end

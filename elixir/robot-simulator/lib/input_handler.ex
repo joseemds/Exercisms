@@ -1,10 +1,12 @@
 defmodule RobotSimulator.InputHandler do
   @valid_instruction ~w"R L A"
 
+  defguard is_valid_instruction(instruction) when instruction in @valid_instruction
+
   def handle_input(robot, []), do: robot
 
   def handle_input(robot, [instruction | remaining_instructions])
-      when instruction in @valid_instruction do
+      when is_valid_instruction(instruction) do
     robot |> update_direction(instruction) |> handle_input(remaining_instructions)
   end
 

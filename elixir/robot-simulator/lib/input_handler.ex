@@ -14,30 +14,30 @@ defmodule RobotSimulator.InputHandler do
 
   defp update_direction(robot, "R") do
     case robot.direction do
-      :north -> Map.put(robot, :direction, :east)
-      :east -> Map.put(robot, :direction, :south)
-      :south -> Map.put(robot, :direction, :west)
-      :west -> Map.put(robot, :direction, :north)
+      :north -> %{robot | direction: :east}
+      :east -> %{robot | direction: :south}
+      :south -> %{robot | direction: :west}
+      :west -> %{robot | direction: :north}
       _ -> "Invalid"
     end
   end
 
   defp update_direction(robot, "L") do
     case robot.direction do
-      :north -> Map.put(robot, :direction, :west)
-      :east -> Map.put(robot, :direction, :north)
-      :south -> Map.put(robot, :direction, :east)
-      :west -> Map.put(robot, :direction, :south)
+      :north -> %{robot | direction: :west}
+      :east -> %{robot | direction: :north}
+      :south -> %{robot | direction: :east}
+      :west -> %{robot | direction: :south}
       _ -> "Invalid"
     end
   end
 
   defp update_direction(robot, "A") do
     case robot.direction do
-      :north -> Map.put(robot, :position, update_position(robot, :north))
-      :east -> Map.put(robot, :position, update_position(robot, :east))
-      :south -> Map.put(robot, :position, update_position(robot, :south))
-      :west -> Map.put(robot, :position, update_position(robot, :west))
+      :north -> %{robot | position: update_position(robot, :north)}
+      :east -> %{robot | position: update_position(robot, :east)}
+      :south -> %{robot | position: update_position(robot, :south)}
+      :west -> %{robot | position: update_position(robot, :west)}
       _ -> "Invalid"
     end
   end

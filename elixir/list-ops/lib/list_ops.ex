@@ -16,6 +16,9 @@ defmodule ListOps do
 
   @spec map(list, (any -> any)) :: list
   def map(l, f) do
+    for item <- l do
+      f.(item)
+    end
   end
 
   @spec filter(list, (any -> as_boolean(term))) :: list

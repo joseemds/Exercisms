@@ -35,18 +35,17 @@ defmodule ListOps do
     end
   end
 
-  defp do_filter([], acc) do
-    acc
-  end
-
-  defp do_filter(l, acc) do
+  def do_filter(l, f, acc) do
+    for item <- l do
+      if f.(item) do
+        acc ++ item
+      end
+    end
   end
 
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(l, f) do
-    for item <- l do
-      do_filter(l, [])
-    end
+    do_filter(l, f, [])
   end
 
   @type acc :: any

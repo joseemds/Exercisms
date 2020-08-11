@@ -10,8 +10,17 @@ defmodule ListOps do
   def count(l) do
   end
 
+  defp do_reverse([], acc) do
+    acc
+  end
+
+  defp do_reverse([head | tail], acc) do
+    do_reverse(tail, [head | acc])
+  end
+
   @spec reverse(list) :: list
   def reverse(l) do
+    do_reverse(l, [])
   end
 
   @spec map(list, (any -> any)) :: list
@@ -21,22 +30,33 @@ defmodule ListOps do
     end
   end
 
+  defp do_filter([], acc) do
+    acc
+  end
+
+  defp do_filter(l, acc) do
+  end
+
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(l, f) do
     for item <- l do
-      if f.(item) == true do
-        item
-      end
+      do_filter(l, [])
     end
   end
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
   def reduce(l, acc, f) do
+    for item <- l do
+      acc = f.(item, acc)
+    end
   end
 
   @spec append(list, list) :: list
   def append(a, b) do
+    for item <- a do
+      b = [a | item]
+    end
   end
 
   @spec concat([[any]]) :: [any]

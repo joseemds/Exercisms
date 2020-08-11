@@ -36,10 +36,8 @@ defmodule ListOps do
   end
 
   def do_filter(l, f, acc) do
-    for item <- l do
-      if f.(item) do
-        acc ++ item
-      end
+    for item <- l, f.(item) do
+      acc ++ item
     end
   end
 

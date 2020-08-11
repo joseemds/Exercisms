@@ -35,30 +35,25 @@ defmodule ListOps do
     end
   end
 
-  def do_filter(l, f, acc) do
-    for item <- l, f.(item) do
-      acc ++ item
-    end
-  end
-
   @spec filter(list, (any -> as_boolean(term))) :: list
   def filter(l, f) do
-    do_filter(l, f, [])
+    for item <- l, f.(item) do
+      item
+    end
   end
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
-  def reduce(l, acc, f) do
-    for item <- l do
-      acc = f.(item, acc)
-    end
+  def reduce([], acc, f) do
+    acc
+  end
+
+  def reduce([head | tail], acc, f) do
+    f.(head, reduce(tail, acc, f))
   end
 
   @spec append(list, list) :: list
   def append(a, b) do
-    for item <- a do
-      b = [a | item]
-    end
   end
 
   @spec concat([[any]]) :: [any]

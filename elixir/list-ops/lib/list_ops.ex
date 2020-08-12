@@ -60,5 +60,8 @@ defmodule ListOps do
 
   @spec concat([[any]]) :: [any]
   def concat(ll) do
+    for list <- ll, item <- list, into: [] do
+      item
+    end
   end
 end

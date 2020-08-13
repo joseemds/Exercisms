@@ -17,19 +17,13 @@ defmodule Markdown do
     |> Enum.map(&process(&1))
     |> Enum.join()
     |> patch
-
-    # patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
   end
 
   defp process(t) do
-    if String.starts_with?(t, "#") || String.starts_with?(t, "*") do
-      if String.starts_with?(t, "#") do
-        enclose_with_header_tag(parse_header_md_level(t))
-      else
-        parse_list_md_level(t)
-      end
-    else
-      enclose_with_paragraph_tag(String.split(t))
+    cond do
+      String.starts_with?(t, "#") -> t |> parse_header_md_level |> enclose_with_header_tag
+      String.starts_with?(t, "*") -> t |> parse_list_md_level()
+      true -> t |> String.split() |> enclose_with_paragraph_tag
     end
   end
 

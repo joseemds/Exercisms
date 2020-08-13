@@ -12,7 +12,13 @@ defmodule Markdown do
   """
   @spec parse(String.t()) :: String.t()
   def parse(m) do
-    patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
+    m
+    |> String.split("\n")
+    |> Enum.map(&process(&1))
+    |> Enum.join()
+    |> patch
+
+    # patch(Enum.join(Enum.map(String.split(m, "\n"), fn t -> process(t) end)))
   end
 
   defp process(t) do

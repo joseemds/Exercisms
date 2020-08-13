@@ -33,8 +33,7 @@ defmodule Markdown do
   end
 
   defp parse_list_md_level(l) do
-    t = String.split(String.trim_leading(l, "* "))
-    "<li>" <> join_words_with_tags(t) <> "</li>"
+    "<li>#{l |> String.trim_leading("* ") |> String.split() |> join_words_with_tags}</li>"
   end
 
   defp enclose_with_header_tag({hl, htl}) do
@@ -77,11 +76,5 @@ defmodule Markdown do
     l
     |> String.replace("<li>", "<ul>" <> "<li>", global: false)
     |> String.replace_suffix("</li>", "</li>" <> "</ul>")
-
-    # String.replace_suffix(
-    #   String.replace(l, "<li>", "<ul>" <> "<li>", global: false),
-    #   "</li>",
-    #   "</li>" <> "</ul>"
-    # )
   end
 end

@@ -15,7 +15,7 @@ defmodule Markdown do
     m
     |> String.split("\n")
     |> Enum.map_join(&process/1)
-    |> patch
+    |> surround_list_item
   end
 
   defp process(t = "#" <> _), do: t |> parse_header_md_level |> enclose_with_header_tag
@@ -67,7 +67,7 @@ defmodule Markdown do
     end
   end
 
-  defp patch(l) do
+  defp surround_list_item(l) do
     l
     |> String.replace("<li>", "<ul>" <> "<li>", global: false)
     |> String.replace_suffix("</li>", "</li>" <> "</ul>")

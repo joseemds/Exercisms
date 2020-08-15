@@ -14,21 +14,13 @@ defmodule Markdown do
   def parse(m) do
     m
     |> String.split("\n")
-    |> Enum.map(&process(&1))
-    |> Enum.join()
+    |> Enum.map_join(&process(&1))
     |> patch
   end
 
   defp process(t = "#" <> _), do: t |> parse_header_md_level |> enclose_with_header_tag
   defp process(t = "*" <> _), do: t |> parse_list_md_level
   defp process(t), do: t |> String.split() |> enclose_with_paragraph_tag
-  # defp process(t) do
-  #   cond do
-  #     String.starts_with?(t, "#") -> t |> parse_header_md_level |> enclose_with_header_tag
-  #     String.starts_with?(t, "*") -> t |> parse_list_md_level()
-  #     true -> t |> String.split() |> enclose_with_paragraph_tag
-  #   end
-  # end
 
   defp parse_header_md_level(hwt) do
     [h | t] = String.split(hwt)

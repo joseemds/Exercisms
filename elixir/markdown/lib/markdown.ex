@@ -14,7 +14,7 @@ defmodule Markdown do
   def parse(m) do
     m
     |> String.split("\n")
-    |> Enum.map_join(&process(&1))
+    |> Enum.map_join(&process/1)
     |> patch
   end
 

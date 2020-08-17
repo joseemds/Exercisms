@@ -22,6 +22,7 @@ defmodule BankAccount do
   """
   @spec close_bank(account) :: none
   def close_bank(account) do
+    Agent.stop(account)
   end
 
   @doc """
@@ -29,7 +30,7 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
-    Agent.get(account, fn balance -> balance end)
+    Agent.get(account, & &1)
   end
 
   @doc """
@@ -37,5 +38,6 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
+    Agent.update(account, fn balance -> balance + amount end)
   end
 end

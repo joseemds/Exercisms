@@ -27,11 +27,22 @@ defmodule DndCharacter do
       end
 
     list
-    |> Enum.reject(fn x -> x == Enum.min(list) end)
     |> Enum.sum()
+    |> Kernel.-(Enum.min(list))
   end
 
   @spec character :: t()
   def character do
+    constitution = ability()
+
+    %__MODULE__{
+      strength: ability(),
+      dexterity: ability(),
+      constitution: constitution,
+      intelligence: ability(),
+      wisdom: ability(),
+      charisma: ability(),
+      hitpoints: 10 + modifier(constitution)
+    }
   end
 end

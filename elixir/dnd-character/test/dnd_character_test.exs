@@ -72,7 +72,6 @@ defmodule DndCharacterTest do
   end
 
   describe "random ability" do
-    @tag :pending
     test "is within range" do
       Enum.each(1..200, fn _ -> assert ability() in 3..18 end)
     end

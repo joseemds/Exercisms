@@ -30,7 +30,11 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
-    Agent.get(account, & &1)
+    if Process.alive?(account) do
+      Agent.get(account, & &1)
+    else
+      {:error, :account_closed}
+    end
   end
 
   @doc """
@@ -38,6 +42,10 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
-    Agent.update(account, fn balance -> balance + amount end)
+    if Process.alive?(account) do
+      Agent.update(account, fn balance -> balance + amount end)
+    else
+      {:error, :account_closed}
+    end
   end
 end

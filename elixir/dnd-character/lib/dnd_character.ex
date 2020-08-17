@@ -21,14 +21,16 @@ defmodule DndCharacter do
 
   @spec ability :: pos_integer()
   def ability do
-    list =
-      for _ <- 1..4 do
-        Enum.random(1..6)
-      end
+    # list =
+    #   for _ <- 1..4 do
+    #     Enum.random(1..6)
+    #   end
 
-    list
+    1..4
+    |> Enum.map(fn _ -> Enum.random(1..6) end)
+    |> Enum.sort()
+    |> Kernel.tl()
     |> Enum.sum()
-    |> Kernel.-(Enum.min(list))
   end
 
   @spec character :: t()

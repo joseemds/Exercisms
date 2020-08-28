@@ -9,6 +9,9 @@ defmodule Raindrops do
     just pass the number's digits straight through.
   """
   @spec convert(pos_integer) :: String.t()
+  def convert(number) when rem(number, 3) == 0 do
+    "Pling"
+  end
 
   def convert(number) do
     Integer.to_string(number)

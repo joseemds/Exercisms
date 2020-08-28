@@ -17,7 +17,15 @@ defmodule Raindrops do
     "Plang"
   end
 
-  def convert(number) do
+  def convert(number) when rem(number, 7) == 0 do
+    "Plong"
+  end
+
+  def convert(number) when is_number(number) do
     Integer.to_string(number)
+  end
+
+  def convert(word) do
+    word
   end
 end

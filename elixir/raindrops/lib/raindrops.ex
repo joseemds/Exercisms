@@ -10,11 +10,11 @@ defmodule Raindrops do
   """
   @spec convert(pos_integer) :: String.t()
   def convert(number) do
-    pling(number) <> plang(number) <> plong(number)
-  end
-
-  def convert(number) do
-    Integer.to_string(number)
+    (pling(number) <> plang(number) <> plong(number))
+    |> case do
+      "" -> Integer.to_string(number)
+      word -> word
+    end
   end
 
   defp plong(number) when rem(number, 7) == 0 do
